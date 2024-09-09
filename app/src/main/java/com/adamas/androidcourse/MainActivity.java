@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == SecondActivity.RESULT_CODE) {
+        if ((data != null) && (resultCode == SecondActivity.RESULT_CODE)) {
             String backMessage = data.getStringExtra(SecondActivity.INTENT_BACK_MESSAGE_KEY);
-            Log.i(SecondActivity.INTENT_BACK_MESSAGE_KEY, backMessage);
+            Log.i(SecondActivity.INTENT_BACK_MESSAGE_KEY, backMessage != null ? backMessage : "");
         }
     }
 
