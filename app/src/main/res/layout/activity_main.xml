@@ -13,16 +13,34 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_main"
+            android:id="@+id/btn_second_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test" />
+            android:backgroundTint="@color/red"
+            android:text="@string/main_button_second_activity" />
+
+        <Button
+            android:id="@+id/btn_website"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_button_website" />
+
+        <Button
+            android:id="@+id/btn_alert_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_button_show_alert" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner" />
 
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="Male" />
+            android:text="@string/general_male" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -31,18 +49,18 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Option 1" />
+                android:text="@string/main_button_option_1" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Option 2" />
+                android:text="@string/main_button_option_2" />
         </RadioGroup>
 
         <ToggleButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Toggle Button" />
+            android:text="@string/main_button_toggle" />
 
         <Switch
             android:layout_width="match_parent"
@@ -57,13 +75,13 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seg 1" />
+                android:text="@string/main_button_seg_1" />
 
             <Button
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seg 2" />
+                android:text="@string/main_button_seg_2" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
         <SeekBar
@@ -77,7 +95,7 @@
             android:id="@+id/btn_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show menu" />
+            android:text="@string/main_button_menu" />
 
         <DatePicker
             android:layout_width="match_parent"
@@ -86,7 +104,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Text View" />
+            android:text="@string/main_text_view_sample" />
 
         <EditText
             android:layout_width="match_parent"

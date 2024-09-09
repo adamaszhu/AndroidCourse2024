@@ -1,17 +1,23 @@
 package com.adamas.androidcourse;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -38,8 +44,19 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        setupTestButton();
+        setupSecondActivityButton();
+        setupWebsiteButton();
         setupMenuButton();
+        setupAlertDialogButton();
+        setupSpinner();
+        setupListButton();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     @Override
@@ -47,21 +64,28 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == SecondActivity.RESULT_CODE) {
             String backMessage = data.getStringExtra(SecondActivity.INTENT_BACK_MESSAGE_KEY);
-            Log.i("BACKMESSAGE", backMessage);
+            Log.i(SecondActivity.INTENT_BACK_MESSAGE_KEY, backMessage);
         }
     }
 
-    private void setupTestButton() {
-        binding.btnMain.setOnClickListener(new View.OnClickListener() {
+    private void setupSecondActivityButton() {
+        binding.btnSecondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra(MainActivity.INTENT_MESSAGE_KEY, "This is a message");
                 startActivityForResult(intent, MainActivity.REQUEST_CODE);
-                // Open web browser
-//                Uri uri = Uri.parse("https://www.google.com.au");
-//                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//                startActivity(intent);
+            }
+        });
+    }
+
+    private void setupWebsiteButton() {
+        binding.btnWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(getString(R.string.url_google));
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
     }
@@ -82,5 +106,42 @@ public class MainActivity extends AppCompatActivity {
                 menu.show();
             }
         });
+    }
+
+    private void setupAlertDialogButton() {
+        binding.btnAlertDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle(R.string.main_alert_title);
+                builder.setMessage(R.string.main_alert_message);
+                builder.setPositiveButton(R.string.main_alert_primary_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(MainActivity.this, "Confirm clicked", Toast.LENGTH_LONG).show();
+                    }
+                });
+                builder.create().show();
+            }
+        });
+    }
+
+    private void setupSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_dropdown_item);
+        binding.spinner.setAdapter(adapter);
+    }
+
+    private void setupListButton() {
+        Button btn = new Button(this);
+        btn.setText(R.string.main_title);
+        btn.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ListActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.main.addView(btn);
     }
 }

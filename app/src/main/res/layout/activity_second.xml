@@ -8,15 +8,31 @@
     android:orientation="vertical"
     tools:context=".SecondActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/second_text_view_sample_1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/second_text_view_sample_2"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Second Activity" />
+        android:text="@string/second_text_view_title" />
 
     <Button
         android:id="@+id/btn_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back" />
+        android:text="@string/general_back" />
 </LinearLayout>

@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">AndroidCourse</string>
+
+    <string name="general_male">Male</string>
+    <string name="general_text_placeholder">-</string>
+    <string name="general_back">Back</string>
+
+    <string name="url_google">https://www.google.com.au</string>
+
+    <string name="main_button_second_activity">Second Activity</string>
+    <string name="main_button_website">Website</string>
+    <string name="main_button_show_alert">Show Alert</string>
+    <string name="main_button_option_1">Option 1</string>
+    <string name="main_button_option_2">Option 2</string>
+    <string name="main_button_toggle">Toggle Button</string>
+    <string name="main_button_seg_1">Seg 1</string>
+    <string name="main_button_seg_2">Seg 2</string>
+    <string name="main_button_menu">Show menu</string>
+    <string name="main_text_view_sample">Text View</string>
+    <string name="main_alert_title">Title</string>
+    <string name="main_alert_message">Message</string>
+    <string name="main_alert_primary_button">Confirm</string>
+
+    <string name="second_text_view_sample_1">Text View 1</string>
+    <string name="second_text_view_sample_2">Text View 2</string>
+    <string name="second_text_view_title">Second Activity</string>
+    <string name="main_title">List Activity</string>
+
+    <string-array name="spinner">
+        <item>First item</item>
+        <item>Second item</item>
+        <item>Third item</item>
+    </string-array>
 </resources>
