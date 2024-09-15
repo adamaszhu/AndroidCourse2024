@@ -1,7 +1,14 @@
 package com.adamas.androidcourse;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,21 +23,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.adamas.androidcourse.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
     static final Integer REQUEST_CODE = 0;
+    static final Integer PERMISSION_REQUEST_CODE = 0;
     static final String INTENT_MESSAGE_KEY = "MESSAGE";
 
     private ActivityMainBinding binding;
+    private SensorManager sensorManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +56,47 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
         setupSecondActivityButton();
+        setupRecycleViewButton();
+        setupFragmentButton();
         setupWebsiteButton();
         setupMenuButton();
         setupAlertDialogButton();
         setupSpinner();
         setupListButton();
+
+        checkLocationPermission();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        binding.tvSensor.setText(String.format("Pressure: %f", event.values[0]));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if result == granted {
+            // Get location
+//        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -62,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == SecondActivity.RESULT_CODE) {
+        if ((resultCode == SecondActivity.RESULT_CODE) && data != null) {
             String backMessage = data.getStringExtra(SecondActivity.INTENT_BACK_MESSAGE_KEY);
             Log.i(SecondActivity.INTENT_BACK_MESSAGE_KEY, backMessage);
         }
@@ -75,6 +122,29 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra(MainActivity.INTENT_MESSAGE_KEY, "This is a message");
                 startActivityForResult(intent, MainActivity.REQUEST_CODE);
+            }
+        });
+    }
+
+    private void setupRecycleViewButton() {
+        binding.btnRecycleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RecycleActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setupFragmentButton() {
+        binding.btnFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SampleFragment fragment = SampleFragment.newInstance("Name", "Description");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit();
             }
         });
     }
@@ -143,5 +213,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         binding.main.addView(btn);
+    }
+
+    private void checkLocationPermission() {
+        int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION }, MainActivity.PERMISSION_REQUEST_CODE);
+        } else {
+            // Get location
+        }
     }
 }

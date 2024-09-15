@@ -16,6 +16,8 @@
     <string name="main_button_seg_1">Seg 1</string>
     <string name="main_button_seg_2">Seg 2</string>
     <string name="main_button_menu">Show menu</string>
+    <string name="main_button_recycle_view">Recycle View</string>
+    <string name="main_button_fragment">Show Fragment</string>
     <string name="main_text_view_sample">Text View</string>
     <string name="main_alert_title">Title</string>
     <string name="main_alert_message">Message</string>

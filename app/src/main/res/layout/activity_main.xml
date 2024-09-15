@@ -20,6 +20,23 @@
             android:text="@string/main_button_second_activity" />
 
         <Button
+            android:id="@+id/btn_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_button_recycle_view" />
+
+        <Button
+            android:id="@+id/btn_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_button_fragment" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_container"/>
+
+        <Button
             android:id="@+id/btn_website"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,6 +121,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tv_sensor"
             android:text="@string/main_text_view_sample" />
 
         <EditText
