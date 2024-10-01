@@ -20,6 +20,18 @@
             android:text="@string/main_button_second_activity" />
 
         <Button
+            android:id="@+id/btn_thread_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_button_thread_activity" />
+
+        <Button
+            android:id="@+id/btn_storage_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/main_button_storage_activity" />
+
+        <Button
             android:id="@+id/btn_recycle_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

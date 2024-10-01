@@ -8,6 +8,8 @@
     <string name="url_google">https://www.google.com.au</string>
 
     <string name="main_button_second_activity">Second Activity</string>
+    <string name="main_button_thread_activity">Thread</string>
+    <string name="main_button_storage_activity">Storage</string>
     <string name="main_button_website">Website</string>
     <string name="main_button_show_alert">Show Alert</string>
     <string name="main_button_option_1">Option 1</string>

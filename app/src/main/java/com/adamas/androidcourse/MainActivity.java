@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         setupSecondActivityButton();
+        setupThreadActivityButton();
+        setupStorageActivityButton();
         setupRecycleViewButton();
         setupFragmentButton();
         setupWebsiteButton();
@@ -122,6 +124,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra(MainActivity.INTENT_MESSAGE_KEY, "This is a message");
                 startActivityForResult(intent, MainActivity.REQUEST_CODE);
+            }
+        });
+    }
+
+    private void setupThreadActivityButton() {
+        binding.btnThreadActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ThreadActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setupStorageActivityButton() {
+        binding.btnStorageActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StorageActivity.class);
+                startActivity(intent);
             }
         });
     }
