@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.adamas.androidcourse"
-        minSdk = 26
+        minSdk = 34
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-
+    implementation("org.greenrobot:eventbus:3.3.1")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

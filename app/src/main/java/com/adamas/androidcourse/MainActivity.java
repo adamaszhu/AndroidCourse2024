@@ -1,6 +1,10 @@
 package com.adamas.androidcourse;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +13,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,21 +26,26 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentManager;
 
 import com.adamas.androidcourse.databinding.ActivityMainBinding;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
@@ -70,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setupListButton();
 
         checkLocationPermission();
+        checkNotificationPermission();
     }
 
     @Override
@@ -83,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if result == granted {
-            // Get location
-//        }
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getLatestLocation();
+        }
     }
 
     @Override
@@ -239,10 +252,61 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private void checkLocationPermission() {
         int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION }, MainActivity.PERMISSION_REQUEST_CODE);
+        if (permission == PackageManager.PERMISSION_GRANTED) {
+            getLatestLocation();
+        } else if (permission == PackageManager.PERMISSION_DENIED) {
+            // Tell the user in a way
         } else {
-            // Get location
+            ActivityCompat.requestPermissions(this, new String[]{ Manifest.permission.ACCESS_COARSE_LOCATION }, MainActivity.PERMISSION_REQUEST_CODE);
         }
+    }
+
+
+    @SuppressLint({"MissingPermission"})
+    private void getLatestLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean isNetworkProviderEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (isNetworkProviderEnabled) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 100, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    Log.i("LOCATION_UPDATE", location.toString());
+                }
+            });
+        } else {
+            // Switch provider or show an error
+        }
+    }
+
+    private void checkNotificationPermission() {
+        ActivityResultLauncher<String[]> launcher = registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), new ActivityResultCallback<Map<String, Boolean>>() {
+            @Override
+            public void onActivityResult(Map<String, Boolean> o) {
+                // Do something when permission
+            }
+        });
+        int permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS);
+        if (permission == PackageManager.PERMISSION_GRANTED) {
+            showNotification();
+        } else if (permission == PackageManager.PERMISSION_DENIED) {
+            // Show something
+        } else {
+            launcher.launch(new String[]{ android.Manifest.permission.POST_NOTIFICATIONS });
+        }
+    }
+
+    @SuppressLint("NotificationPermission")
+    private void showNotification() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel channel = new NotificationChannel("android", "Sample Chanel", NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("This is a sample notification channel");
+        notificationManager.createNotificationChannel(channel);
+
+        Notification notification = new Notification.Builder(this, "android")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Sample Notification")
+                .setContentText("Message")
+                .build();
+        notificationManager.notify(1, notification);
     }
 }

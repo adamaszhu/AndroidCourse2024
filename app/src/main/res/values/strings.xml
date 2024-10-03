@@ -30,6 +30,11 @@
     <string name="second_text_view_title">Second Activity</string>
     <string name="main_title">List Activity</string>
 
+    <string name="thread_button_create_thread">Create Thread</string>
+    <string name="thread_button_create_event_bus_thread">Create Event Bus Thread</string>
+    <string name="thread_button_start_service">Start service</string>
+    <string name="thread_button_update_counter">Update counter</string>
+
     <string-array name="spinner">
         <item>First item</item>
         <item>Second item</item>

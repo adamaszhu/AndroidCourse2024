@@ -11,5 +11,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thread" />
+        android:id="@+id/tv_display"
+        android:text="@string/general_text_placeholder" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_create_thread"
+        android:text="@string/thread_button_create_thread" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_create_event_bus_thread"
+        android:text="@string/thread_button_create_event_bus_thread" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_start_service"
+        android:text="@string/thread_button_start_service" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_update_binding_service"
+        android:text="@string/thread_button_update_counter" />
 </LinearLayout>
