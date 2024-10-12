@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidCourse"
         tools:targetApi="31">
+        <provider
+            android:name=".MyContentProvider"
+            android:authorities="com.adamas.androidcourse"
+            android:enabled="true"
+            android:exported="true"></provider>
+
         <service
             android:name=".MyService"
             android:enabled="true"

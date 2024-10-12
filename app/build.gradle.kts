@@ -38,6 +38,8 @@ android {
 
 dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit:retrofit:2.0.0-beta2")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

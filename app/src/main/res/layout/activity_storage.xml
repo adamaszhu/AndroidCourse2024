@@ -7,8 +7,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".StorageActivity">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_pref"
+        android:text="Pref" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Storage" />
+        android:textAlignment="center"
+        android:id="@+id/tv_pref"
+        android:text="@string/general_text_placeholder" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_db_insert"
+        android:text="DB Insert" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_db_update"
+        android:text="DB Update" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_db_delete"
+        android:text="DB Delete" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/tv_db"
+        android:text="@string/general_text_placeholder" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_file"
+        android:text="File" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/tv_file"
+        android:text="@string/general_text_placeholder" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_api"
+        android:text="API" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/tv_api"
+        android:text="@string/general_text_placeholder" />
 </LinearLayout>
